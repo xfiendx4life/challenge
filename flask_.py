@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-
+from passwordmaker import password_creator
 import os
 import jinja2
 from flask import Flask
 from flask import request
+from db_processing import db_query, update
 app = Flask(__name__)
+
 
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates' )
@@ -21,16 +23,20 @@ def render(template, **kw):
 
 @app.route('/')
 def hello_world():
-   return render('index.html', text='Hello, stranger md5 me', visible = 'Hidden',
-                 visible_password = "Hidden")
+   return render('index.html', text='Hello, stranger md5 me',
+                 visible = 'Hidden',password_visibility="hidden")
 
 @app.route('/ab86a1e1ef70dff97959067b723c5c24', methods = ['GET', 'POST'])
 def welcome():
    if request.method == 'POST':
       login = request.form['login']
-      #should access db and if there is no entry for this username ask to make a password
-      return render('index.html', text='hello, %s' % login, visible_password = "visible")
-   return render('index.html', text=' - Welcome, Sranger. What is your name? ')
+      password = password_creator()#generating password
+      update(login, password, '100')#add entry to data base
+      #show the table of results
+      return render('index.html', text='hello, %s' % login, visible = "Hidden",
+                    password_visibility="visible", password = password)
+   
+   return render('index.html', text=' - Welcome, Sranger. What is your name? ',password_visibility="hidden")
 
 
 if __name__ == '__main__':

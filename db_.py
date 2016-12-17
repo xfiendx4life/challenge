@@ -13,3 +13,8 @@ class Leader(Base):
     name = Column(String(250), nullable = False)
     password = Column(String(250), nullable = False)
     rating = Column(String(250), nullable = False)
+
+
+
+engine = create_engine('sqlite:///users.db')
+Base.metadata.create_all(engine)
