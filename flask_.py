@@ -35,9 +35,15 @@ def welcome():
       #show the table of results
       return render('index.html', text='hello, %s' % login, visible = "Hidden",
                     password_visibility="visible", password = password)
-   
+      #need to set cookie here
    return render('index.html', text=' - Welcome, Sranger. What is your name? ',password_visibility="hidden")
 
+@app.route('/table', methods = ['GET'])
+def table():
+   people = db_query()
+   if request.method == "GET":
+      return render('table.html', base = people)
+   
 
 if __name__ == '__main__':
    app.run()
