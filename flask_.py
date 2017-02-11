@@ -31,11 +31,16 @@ def welcome():
    if request.method == 'POST':
       login = request.form['login']
       password = password_creator()#generating password
-      update(login, password, '100')#add entry to data base
-      #show the table of results
-      return render('index.html', text='hello, %s' % login, visible = "Hidden",
-                    password_visibility="visible", password = password)
+      up = update(login, password, '100')#add entry to data base
+      print(up)
+      if up:
+         #show the table of results
+         return render('index.html', text='hello, %s' % login, visible = "Hidden",
+                       password_visibility="visible", password = password)
       #need to set cookie here
+      else:
+         return render('index.html', text='hello, %s' % login, visible = "Hidden",
+                       password_visibility="visible", password = "You've already registered")
    return render('index.html', text=' - Welcome, Stranger. What is your name? ',password_visibility="hidden")
 
 @app.route('/table', methods = ['GET'])
