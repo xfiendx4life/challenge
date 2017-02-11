@@ -4,7 +4,9 @@ import os
 import jinja2
 from flask import Flask
 from flask import request
+from flask import make_response
 from db_processing import db_query, update
+import hashlib
 app = Flask(__name__)
 
 
@@ -39,9 +41,15 @@ def welcome():
                        password_visibility="visible", password = password)
       #need to set cookie here
       else:
-         return render('index.html', text='hello, %s' % login, visible = "Hidden",
-                       password_visibility="visible", password = "You've already registered")
-   return render('index.html', text=' - Welcome, Stranger. What is your name? ',password_visibility="hidden")
+         resp = make_response(render('index.html',
+                                     text='hello, %s' % login, visible = "Hidden",
+                       password_visibility="visible",
+                                     password = "You've already registered"))
+         resp.set_cookie('username', login)
+         resp.set_cookie('password', hashlib.md5(password.encode('utf-8')).hexdigest())
+         return resp
+   return render('index.html', text=' - Welcome, Stranger. What is your name? ',
+                 password_visibility="hidden")
 
 @app.route('/table', methods = ['GET'])
 def table():
