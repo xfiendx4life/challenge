@@ -36,7 +36,7 @@ def welcome():
       return render('index.html', text='hello, %s' % login, visible = "Hidden",
                     password_visibility="visible", password = password)
       #need to set cookie here
-   return render('index.html', text=' - Welcome, Sranger. What is your name? ',password_visibility="hidden")
+   return render('index.html', text=' - Welcome, Stranger. What is your name? ',password_visibility="hidden")
 
 @app.route('/table', methods = ['GET'])
 def table():

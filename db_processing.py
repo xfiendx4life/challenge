@@ -17,13 +17,16 @@ def db_query():
  
 def update(leader_name, leader_password, rating):
     session = initialize_db()
-    name = session.query(Leader).filter(Leader.name == leader_name).all()[0].name
-    print(name)
-    if name == '':
+    name = ''
+    try:
+        name = session.query(Leader).filter(Leader.name == leader_name).all()[0].name
+        print(name)
+    except:
         leader_password = hashlib.md5(leader_password.encode("utf-8")).hexdigest()
         new_leader = Leader(name = leader_name, password = leader_password, rating=rating)
         session.add(new_leader)
         session.commit()
+        print('name added')
     else:
         print(name + 'not updated')
 
