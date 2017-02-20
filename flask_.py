@@ -27,8 +27,11 @@ def get_hash(password):
 def valid_login(login,password):
    people = db_query()
    for person in people:
-      if person.name == login:
+      if person.name == login and get_hash(password) == person.password:
+         return True
          
+def log_the_user_in(username, password):
+   
 
 @app.route('/')
 def hello_world():
@@ -73,7 +76,7 @@ def login():
             return log_the_user_in(request.form['username'])
         else:
             error = 'Invalid username/password'
-    return render_template('login.html', error=error)
+    return render('login.html', error=error)
    
    
 
