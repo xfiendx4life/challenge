@@ -1,0 +1,77 @@
+<!DOCTYPE html >
+<title>doitornot</title>
+<style type="text/css">
+body {
+  background: #000;
+  color: #00ff00;
+  display: block;
+  padding: 5px;
+  font-family:monospace;
+}
+div{
+	width: 100%;
+
+
+}
+
+h1{
+  text-align: center;
+  
+}
+.disclaimer{
+  position: static;
+  width: auto;
+  
+}
+
+textarea{
+			width: 400px;
+			height: 200px;
+			font-size: 17px;
+			font-family: monospace;
+			background-color: black;
+			color: #00ff00;
+			font-family:monospace;
+		}
+input[type=text] {
+			width: 400px;
+			font-size: 20px;
+			padding: 2px;
+			background-color: black;
+			color: #00ff00;
+			font-family:monospace;
+		}
+input[type=password] {
+			width: 400px;
+			font-size: 20px;
+			padding: 2px;
+			background-color: black;
+			color: #00ff00;
+			font-family:monospace;
+		}
+.error{
+	color: #FF0000;
+}
+#time{
+	text-align: right
+}
+
+
+</style>
+</head>
+{%block body%}
+<body>
+<h1>{{error}}</h1>
+<div>
+	<p>HELLO, {{name}}</p>
+</div>
+<div style="visibility:{{visible}}">
+	<form method="POST">
+		<input type="text" name = "username">
+		<input type="text" name = "password">
+		<input type="submit">
+	</form>
+</div>
+</body>
+{% endblock %}
+

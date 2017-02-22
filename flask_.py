@@ -5,6 +5,7 @@ import jinja2
 from flask import Flask
 from flask import request
 from flask import make_response
+from flask import abort, redirect, url_for
 from db_processing import db_query, update
 import hashlib
 app = Flask(__name__)
@@ -31,6 +32,12 @@ def valid_login(login,password):
          return True
          
 def log_the_user_in(username, password):
+   resp = make_response(render('signin.html',visible = "Hidden", name = username))
+   print('!!!!'+username)
+   resp.set_cookie('username', username)
+   resp.set_cookie('password', get_hash(password))
+   return resp
+   
    
 
 @app.route('/')
@@ -51,13 +58,7 @@ def welcome():
                        password_visibility="visible", password = password)
       #need to set cookie here
       else:
-         resp = make_response(render('index.html',
-                                     text='hello, %s' % login, visible = "Hidden",
-                       password_visibility="visible",
-                                     password = "You've already registered"))
-         resp.set_cookie('username', login)
-         resp.set_cookie('password', get_hash(password))
-         return resp
+         return redirect(url_for('login'))
    return render('index.html', text=' - Welcome, Stranger. What is your name? ',
                  password_visibility="hidden")
 
@@ -65,18 +66,21 @@ def welcome():
 def table():
    people = db_query()
    if request.method == "GET":
-      return render('table.html', base = people)
+      return render('base.html', base = people)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
-   error = None
-    if request.method == 'POST':
-        if valid_login(request.form['username'],
-                       request.form['password']):
-            return log_the_user_in(request.form['username'])
-        else:
-            error = 'Invalid username/password'
-    return render('login.html', error=error)
+   error = "LOG IN, My FRIEND"
+   if request.method == 'POST':
+      username = request.form['username']
+      password = request.form['password']
+      print('!!!' + username + password)
+      #print(login + password)
+      if valid_login(username,password):#ниже ошибка
+         return log_the_user_in(username, password)
+      else:
+         error = 'Invalid username/password'
+   return render('signin.html', error=error)
    
    
 
