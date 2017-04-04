@@ -31,7 +31,7 @@ def valid_login(login,password):
       if person.name == login and get_hash(password) == person.password:
          return True
          
-def log_the_user_in(username, password):
+def log_the_user_in(username, password): #add logout parameter to function and render different page in case of logout
    resp = make_response(render('signin.html',visible = "Hidden", name = username))
    print('!!!!'+username)
    resp.set_cookie('username', username)
@@ -74,7 +74,7 @@ def login():
    if request.method == 'POST':
       username = request.form['username']
       password = request.form['password']
-      print('!!!' + username + password)
+      #print('!!!' + username + password)
       #print(login + password)
       if valid_login(username,password):#ниже ошибка
          return log_the_user_in(username, password)
@@ -82,7 +82,12 @@ def login():
          error = 'Invalid username/password'
    return render('signin.html', error=error)
    
-   
-
+@app.route('/logout') #take care of logout
+def logout():
+   resp = make_response(render('index.html', text="You're out, login and join us",
+                 visible = 'Hidden',password_visibility="hidden"))
+   resp.set_cookie("username", '')
+   resp.set_cookie("password", '')
+   return resp
 if __name__ == '__main__':
    app.run()
