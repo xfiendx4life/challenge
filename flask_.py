@@ -30,7 +30,13 @@ def valid_login(login,password):
    for person in people:
       if person.name == login and get_hash(password) == person.password:
          return True
-         
+ 
+def check_cookies (login, password):
+	people = db_query()
+	for person in people:
+		if person.name == login and password == person.password:
+			return True 
+
 def log_the_user_in(username, password): #add logout parameter to function and render different page in case of logout
    resp = make_response(render('signin.html',visible = "Hidden", name = username))
    print('!!!!'+username)
@@ -82,12 +88,21 @@ def login():
          error = 'Invalid username/password'
    return render('signin.html', error=error)
    
-@app.route('/logout') #take care of logout
+@app.route('/logout') 
 def logout():
-   resp = make_response(render('index.html', text="You're out, login and join us",
+   resp = make_response(render('logout.html', text="You're out, login and join us",
                  visible = 'Hidden',password_visibility="hidden"))
    resp.set_cookie("username", '')
    resp.set_cookie("password", '')
    return resp
+@app.route('/second', methods = ['GET', 'POST'])
+def second ():
+	try:
+		login = request.cookies['username']
+		pswd = request.cookies['password']
+		if check_cookies(login, pswd):
+			return render('second.html')
+	except:
+		return redirect(url_for('login'))
 if __name__ == '__main__':
    app.run()

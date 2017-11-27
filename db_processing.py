@@ -29,3 +29,11 @@ def update(leader_name, leader_password, rating):
         return True
     return False
 
+def delete_all():
+    session = initialize_db()
+    try:
+        num_rows_deleted = session.query(Leader).delete()
+        session.commit()
+    except:
+        session.rollback()
+    return num_rows_deleted
