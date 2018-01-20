@@ -2,7 +2,7 @@
 <title>doitornot</title>
 <style type="text/css">
 body {
-  background: #000;
+  background:#000;
   color: #00ff00;
   display: block;
   padding: 5px;
@@ -48,7 +48,6 @@ input[type=password] {
 			background-color: black;
 			color: #00ff00;
 			font-family:monospace;
-			border:none;
 		}
 .error{
 	color: #FF0000;
@@ -56,26 +55,28 @@ input[type=password] {
 #time{
 	text-align: right
 }
-.form {
-	margin: auto;
-	width: 80%;
-}
+
 
 </style>
 </head>
-{%block body%}
-<body>
-<h1>{{error}}</h1>
-<div>
-	<p>HELLO, {{name}}</p>
-</div>
-<div style="visibility:{{visible}}" class="form">
-	<form method="POST">
-		<input type="text" name = "username">
-		<input type="text" name = "password">
-		<input type="submit">
-	</form>
-</div>
-</body>
-{% endblock %}
 
+<body>
+	<div>
+		<h1>{{text}}</h1>
+	<div align="center" style="visibility:{{visible}}">
+		<form method="POST" name="username" style="display: inline-block">
+			<div>
+				<input type="text" name="login" >
+			</div>
+			<div style="visibility: {{password_visibility}}">
+				<p >Your password is: {{password}}</p>
+				<a href="table">Check out leader table</a>
+			</div>
+			<input type="submit" name="submit">
+		</form>
+
+	<div>
+		
+	</div>
+</body>
+</html>

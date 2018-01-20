@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from passwordmaker import password_creator
-import os
+import os #KI R4L#c2I%fT
 import jinja2
 from flask import Flask
 from flask import request
@@ -70,9 +70,21 @@ def welcome():
 
 @app.route('/table', methods = ['GET'])
 def table():
-   people = db_query()
-   if request.method == "GET":
-      return render('base.html', base = people)
+   try:
+      login = request.cookies['username']
+      pswd = request.cookies['password']
+   except:
+      login = ""
+      pswd = ""
+
+   if check_cookies(login,pswd):
+      people = db_query()
+      if request.method == "GET":
+         return render('base.html', base = people, table_visibility = "visible", loginFlag = "hidden")
+   else:
+      if request.method == "GET":
+         return render('base.html', table_visibility = "hidden", loginFlag = "visibles")
+
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -95,6 +107,7 @@ def logout():
    resp.set_cookie("username", '')
    resp.set_cookie("password", '')
    return resp
+
 @app.route('/second', methods = ['GET', 'POST'])
 def second ():
 	try:

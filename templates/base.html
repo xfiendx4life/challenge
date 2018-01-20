@@ -1,3 +1,5 @@
+ 
+{%block base %}
 <!DOCTYPE html >
 <title>doitornot</title>
 <style type="text/css">
@@ -23,7 +25,13 @@ h1{
   width: auto;
   
 }
-
+table {
+	width: 60%;
+	margin: auto;
+}
+td {
+	text-align: center;
+}
 textarea{
 			width: 400px;
 			height: 200px;
@@ -48,7 +56,6 @@ input[type=password] {
 			background-color: black;
 			color: #00ff00;
 			font-family:monospace;
-			border:none;
 		}
 .error{
 	color: #FF0000;
@@ -56,26 +63,28 @@ input[type=password] {
 #time{
 	text-align: right
 }
-.form {
-	margin: auto;
-	width: 80%;
-}
+
 
 </style>
 </head>
-{%block body%}
-<body>
-<h1>{{error}}</h1>
-<div>
-	<p>HELLO, {{name}}</p>
-</div>
-<div style="visibility:{{visible}}" class="form">
-	<form method="POST">
-		<input type="text" name = "username">
-		<input type="text" name = "password">
-		<input type="submit">
-	</form>
-</div>
-</body>
 {% endblock %}
-
+<body>
+	<div>
+	<table style="visibility:{{table_visibility}}">
+		<tr>
+			<th>Name</th>
+			<th>Rating</th>
+		</tr>
+		{% for item in base %}
+			<tr>
+				<td>{{item.name}}</td> <td>{{item.rating}}</td>
+			</tr>
+		{% endfor %}
+	</table>
+		
+	</div>
+	<div style="visibility:{{loginFlag}}">
+		<p>Please <a href="/login">LOGIN</a> if you really want to go on</p>
+	</div>
+</body>
+</html>

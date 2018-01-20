@@ -1,0 +1,100 @@
+<!DOCTYPE html >
+<title>doitornot</title>
+<script type="text/javascript">
+	import Typed from 'typed.js';
+	var typed = new Typed('.element', {
+		stringsElement:'#typed-strings'})
+}
+
+</script>
+<style type="text/css">
+body {
+  background: #000;
+  color: #00ff00;
+  display: block;
+  padding: 5px;
+  font-family:monospace;
+}
+div{
+	width: 100%;
+	margin: auto;
+}
+
+h1{
+  text-align: center;
+  
+}
+.disclaimer{
+  position: static;
+  width: auto;
+  
+}
+
+textarea{
+			width: 400px;
+			height: 200px;
+			font-size: 17px;
+			font-family: monospace;
+			background-color: black;
+			color: #00ff00;
+			font-family:monospace;
+		}
+input[type=text] {
+			width: 25px;
+			font-size: 20px;
+			padding: 2px;
+			background-color: black;
+			color: #00ff00;
+			font-family:monospace;
+			border:0;
+
+		}
+input[type=password] {
+			width: 400px;
+			font-size: 20px;
+			padding: 2px;
+			background-color: black;
+			color: #00ff00;
+			font-family:monospace;
+		}
+.error{
+	color: #FF0000;
+}
+#time{
+	text-align: right
+}
+p {
+	font-size: 25px;
+	display: inline;
+}
+span {
+	display: inline;
+}
+form {
+	display: inline;
+}
+#typed-strings {
+	height: 60%;
+	width: 80%;
+	margin: auto;
+}
+</style>
+</head>
+
+<body oncopy="return false">
+	<div>
+		<div id="typed-strings" style="visibility: {{content_visibility}}">
+			<p class = "content_p">"The answer to this is very simple. It was a joke. It had to be a number, an ordinary, smallish number, and I chose that one. Binary representations, base 13, Tibetan monks are all complete nonsense. I sat at my desk, stared into the garden and thought '</p>
+					<form>
+						<input type="text" name="answer">
+					</form> <p>will do'. I typed it out. End of story."</p>
+			<form>
+						<input type="submit" name="okBtn" method = "POST">
+					</form>
+		</div>
+
+	<div>
+		
+	</div>
+</body>
+</html>
